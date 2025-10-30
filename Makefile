@@ -118,6 +118,10 @@ shellcheck: ## Run shellcheck on critical shell scripts
 test: manifests generate fmt vet envtest shellcheck ## Run tests.
 	KUBEBUILDER_ASSETS="$(shell $(ENVTEST) use $(ENVTEST_K8S_VERSION) -p path)" go test ./... -coverprofile cover.out
 
+.PHONY: test-kustomize
+test-kustomize: ## Validate all kustomization.yaml files can build successfully.
+	@hack/test-kustomize.sh
+
 ##@ Build
 
 .PHONY: build
